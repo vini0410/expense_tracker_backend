@@ -2,7 +2,7 @@ package com.project.expensetracker.adapters.web.controllers;
 
 import com.project.expensetracker.adapters.web.dtos.UserDto;
 import com.project.expensetracker.adapters.web.mappers.UserDtoMapper;
-import com.project.expensetracker.domains.usecases.RestUserUseCase;
+import com.project.expensetracker.domains.usecases.UserUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ public class UserController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    private RestUserUseCase useCase;
+    private UserUseCase useCase;
 
     @Autowired
     private UserDtoMapper mapper;

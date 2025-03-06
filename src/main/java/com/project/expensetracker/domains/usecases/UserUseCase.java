@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
-public class RestUserUseCase {
+public class UserUseCase {
 
     @Autowired
     private UserPort port;
