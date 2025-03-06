@@ -31,6 +31,6 @@ public class ExpenseEntity {
     @Column
     private LocalDate date;
 
-//    @Column
-//    private String userId;
+    @Column
+    private String userId;
 }

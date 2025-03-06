@@ -18,5 +18,5 @@ public class Expense {
     private Double amount;
     private String category;
     private LocalDate date;
-//    private String userId;
+    private String userId;
 }

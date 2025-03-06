@@ -12,4 +12,6 @@ public interface ExpensePort{
     Expense findExpenseById(String id);
 
     List<Expense> listExpenses();
+
+    List<Expense> listExpensesByUserId(String userId);
 }

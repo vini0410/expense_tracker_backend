@@ -7,7 +7,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,35 +18,33 @@ public class ExpenseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExpenseController.class);
 
-    @Autowired
-    private ExpenseUseCase useCase;
+    private final ExpenseUseCase useCase;
 
-    @Autowired
-    private ExpenseDtoMapper mapper;
+    private final ExpenseDtoMapper mapper;
 
     @PostMapping
     public ExpenseDto postExpense(@Valid @RequestBody ExpenseDto expense) {
-        LOGGER.info("POST Expense");
+        LOGGER.info("POST Expense {}", expense);
         var res = useCase.createExpense(mapper.toModel(expense));
         return mapper.toDto(res);
     }
 
     @PatchMapping("/{id}")
     public ExpenseDto patchExpense(@PathVariable String id) {
-        LOGGER.info("PATCH Expense", id);
+        LOGGER.info("PATCH Expense {}", id);
         var res = useCase.updateExpense(id);
         return mapper.toDto(res);
     }
 
     @DeleteMapping("/{id}")
     public void deleteExpense(@PathVariable String id) {
-        LOGGER.info("DELETE Expense", id);
+        LOGGER.info("DELETE Expense {}", id);
         useCase.deleteExpense(id);
     }
 
     @GetMapping("/{id}")
     public ExpenseDto getExpenseById(@PathVariable String id) {
-        LOGGER.info("GET Expense", id);
+        LOGGER.info("GET Expense: {}", id);
         var res = useCase.findExpenseById(id);
         return mapper.toDto(res);
     }
@@ -56,6 +53,13 @@ public class ExpenseController {
     public List<ExpenseDto> getExpenses() {
         LOGGER.info("GET Expenses");
         var res = useCase.listExpenses();
+        return res.stream().map(mapper::toDto).toList();
+    }
+
+    @GetMapping("/user")
+    public List<ExpenseDto> getExpensesByUserId(@RequestParam String userId) {
+        LOGGER.info("GET Expenses by UserId: {}", userId);
+        var res = useCase.listExpensesByUserId(userId);
         return res.stream().map(mapper::toDto).toList();
     }
 

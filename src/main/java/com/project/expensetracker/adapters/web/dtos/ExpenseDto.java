@@ -20,5 +20,6 @@ public class ExpenseDto {
     private Double amount;
     private String category;
     private LocalDate date;
+    private String userId;
 
 }

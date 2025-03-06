@@ -5,7 +5,6 @@ import com.project.expensetracker.adapters.repositorys.mappers.ExpenseEntityMapp
 import com.project.expensetracker.domains.models.Expense;
 import com.project.expensetracker.ports.repositorys.ExpensePort;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +13,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ExpensePortImpl implements ExpensePort {
 
-    @Autowired
-    private ExpenseRepository repository;
+    private final ExpenseRepository repository;
 
-    @Autowired
-    private ExpenseEntityMapper mapper;
+    private final ExpenseEntityMapper mapper;
 
     @Override
     public Expense saveExpense(Expense expense) {
@@ -41,6 +38,12 @@ public class ExpensePortImpl implements ExpensePort {
     @Override
     public List<Expense> listExpenses() {
         var res = repository.findAll();
+        return res.stream().map(mapper::toModel).toList();
+    }
+
+    @Override
+    public List<Expense> listExpensesByUserId(String userId) {
+        var res = repository.findAllByUserId(userId);
         return res.stream().map(mapper::toModel).toList();
     }
 }
