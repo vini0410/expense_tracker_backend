@@ -1,3 +1,56 @@
 spring:
   application:
     name: expensetracker
+  profiles:
+    default: prod
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/nomedobanco
+#    username: seuusuario
+#    password: suasenha
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#  security:
+#    user:
+#      name: admin
+#      password: senhaadmin
+#      roles: USER
+#  cache:
+#    type: simple
+  cors:
+    allowed-origins: "*"
+    allowed-methods: GET, POST, PUT, PATCH, DELETE
+    allowed-headers: "*"
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+#  servlet:
+#    multipart:
+#      max-file-size: 10MB
+#      max-request-size: 10MB
+
+server:
+  port: 8080
+  servlet:
+    context-path: /expense-tracker
+
+#logging:
+#  level:
+#    root: INFO
+#    org.springframework.web: INFO
+#    org.hibernate.SQL: INFO
+
+management:
+  endpoints:
+    web:
+      base-path: /monitor
+      exposure:
+        include: health, info, metrics
+  endpoint:
+    health:
+      show-details: always
