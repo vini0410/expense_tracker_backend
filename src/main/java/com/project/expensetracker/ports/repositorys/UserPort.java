@@ -6,7 +6,13 @@ import java.util.List;
 
 public interface UserPort {
 
-    List<User> listUsers();
+    User saveUser(User user);
 
-    User createUser(User user);
+    void deleteUser(String id);
+
+    User findUserById(String id);
+
+    User findUserByEmail(String email);
+
+    List<User> listUsers();
 }

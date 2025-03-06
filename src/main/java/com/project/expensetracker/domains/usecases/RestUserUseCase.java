@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -15,15 +16,46 @@ public class RestUserUseCase {
     @Autowired
     private UserPort port;
 
-    public List<User> listUsers() {
-        var teste = User.builder().id("").name("").email("").password("").build();
+    public User createUser(User user) {
+        return port.saveUser(user);
+    }
 
-        teste.toString();
+    public User updateUser(String id, User model) {
+        var user = port.findUserById(id);
+        if (Objects.isNull(user)) {
+            return null; // throw error
+        }
+        model.setId(id);
+        return port.saveUser(model);
+    }
+
+    public void deleteUser(String id) {
+        var user = port.findUserById(id);
+        if (Objects.isNull(user)) {
+            return; // throw error
+        }
+        port.deleteUser(id);
+    }
+
+    public User findUserById(String id) {
+        var user = port.findUserById(id);
+        if (Objects.isNull(user)) {
+            return null; // throw error
+        }
+        return user;
+    }
+
+    public User findUserByEmail(String email) {
+        var user = port.findUserByEmail(email);
+        if (Objects.isNull(user)) {
+            return null; // throw error
+        }
+        return user;
+    }
+
+    public List<User> listUsers() {
         return port.listUsers();
     }
 
-    public User createUser(User user) {
 
-        return port.createUser(user);
-    }
 }

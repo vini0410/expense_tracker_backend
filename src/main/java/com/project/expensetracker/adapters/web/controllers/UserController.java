@@ -25,17 +25,44 @@ public class UserController {
     @Autowired
     private UserDtoMapper mapper;
 
-    @GetMapping
-    public List<UserDto> getUsers() {
-        LOGGER.info("GET Users");
-        var res = useCase.listUsers();
-        return res.stream().map(mapper::toDto).toList();
-    }
-
     @PostMapping
     public UserDto postUser(@RequestBody @Valid UserDto user) {
         LOGGER.info("POST User", user);
         var res = useCase.createUser(mapper.toModel(user));
         return mapper.toDto(res);
+    }
+
+    @PatchMapping("/{id}")
+    public UserDto patchUser(@PathVariable String id, @RequestBody @Valid UserDto user) {
+        LOGGER.info("PATCH User", id, user);
+        var res = useCase.updateUser(id, (mapper.toModel(user)));
+        return mapper.toDto(res);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUserById(@PathVariable String id) {
+        LOGGER.info("DELETE User", id);
+        useCase.deleteUser(id);
+    }
+
+    @GetMapping("/{id}")
+    public UserDto getUserById(@PathVariable String id) {
+        LOGGER.info("GET User", id);
+        var res = useCase.findUserById(id);
+        return mapper.toDto(res);
+    }
+
+    @GetMapping("/email")
+    public UserDto getUserByEmail(@RequestParam String email) {
+        LOGGER.info("GET User", email);
+        var res = useCase.findUserByEmail(email);
+        return mapper.toDto(res);
+    }
+
+    @GetMapping
+    public List<UserDto> getUsers() {
+        LOGGER.info("GET Users");
+        var res = useCase.listUsers();
+        return res.stream().map(mapper::toDto).toList();
     }
 }
