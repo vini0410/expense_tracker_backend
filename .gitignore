@@ -64,3 +64,4 @@ target
 .gitattributes
 mvnw
 mvnw.cmd
+package-lock.json
