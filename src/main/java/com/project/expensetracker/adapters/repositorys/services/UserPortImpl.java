@@ -5,7 +5,6 @@ import com.project.expensetracker.adapters.repositorys.mappers.UserEntityMapper;
 import com.project.expensetracker.domains.models.User;
 import com.project.expensetracker.ports.repositorys.UserPort;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +14,9 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UserPortImpl implements UserPort {
 
-    @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
 
-    @Autowired
-    private UserEntityMapper mapper;
+    private final UserEntityMapper mapper;
 
     public User saveUser(User user) {
         var savedUser = repository.save(mapper.toEntity(user));

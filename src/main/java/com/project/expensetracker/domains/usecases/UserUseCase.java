@@ -3,7 +3,6 @@ package com.project.expensetracker.domains.usecases;
 import com.project.expensetracker.domains.models.User;
 import com.project.expensetracker.ports.repositorys.UserPort;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,8 +12,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UserUseCase {
 
-    @Autowired
-    private UserPort port;
+    private final UserPort port;
 
     public User createUser(User user) {
         return port.saveUser(user);
