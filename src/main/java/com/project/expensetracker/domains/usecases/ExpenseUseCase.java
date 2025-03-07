@@ -18,12 +18,13 @@ public class ExpenseUseCase {
         return port.saveExpense(expense);
     }
 
-    public Expense updateExpense(String id) {
+    public Expense updateExpense(String id, Expense model) {
         var expense = port.findExpenseById(id);
         if (Objects.isNull(expense)) {
             return null; // throw error
         }
-        return port.saveExpense(expense);
+        model.setId(id);
+        return port.saveExpense(model);
     }
 
     public void deleteExpense(String id) {

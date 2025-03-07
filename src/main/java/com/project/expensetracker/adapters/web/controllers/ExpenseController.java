@@ -23,16 +23,16 @@ public class ExpenseController {
     private final ExpenseDtoMapper mapper;
 
     @PostMapping
-    public ExpenseDto postExpense(@Valid @RequestBody ExpenseDto expense) {
+    public ExpenseDto postExpense(@RequestBody @Valid ExpenseDto expense) {
         LOGGER.info("POST Expense {}", expense);
         var res = useCase.createExpense(mapper.toModel(expense));
         return mapper.toDto(res);
     }
 
     @PatchMapping("/{id}")
-    public ExpenseDto patchExpense(@PathVariable String id) {
+    public ExpenseDto patchExpense(@PathVariable String id, @RequestBody @Valid ExpenseDto expense) {
         LOGGER.info("PATCH Expense {}", id);
-        var res = useCase.updateExpense(id);
+        var res = useCase.updateExpense(id, mapper.toModel(expense));
         return mapper.toDto(res);
     }
 
