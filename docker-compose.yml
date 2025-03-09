@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  backend:
+    image: expense-tracker-compose
+    container_name: expense-tracker-compose
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
