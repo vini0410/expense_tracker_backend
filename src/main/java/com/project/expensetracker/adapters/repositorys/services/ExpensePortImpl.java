@@ -36,6 +36,12 @@ public class ExpensePortImpl implements ExpensePort {
     }
 
     @Override
+    public List<Expense> listExpensesByCategory(String user, String category) {
+        var res = repository.findAllByUserIdAndCategory(user, category);
+        return res.stream().map(mapper::toModel).toList();
+    }
+
+    @Override
     public List<Expense> listExpenses() {
         var res = repository.findAll();
         return res.stream().map(mapper::toModel).toList();

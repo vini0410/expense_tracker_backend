@@ -49,6 +49,13 @@ public class ExpenseController {
         return mapper.toDto(res);
     }
 
+    @GetMapping("/category")
+    public List<ExpenseDto> getExpensesByCategory(@RequestParam String user, @RequestParam String category) {
+        LOGGER.info("GET Expenses by User: {} and Category: {}", user, category);
+        var res = useCase.listExpensesByCategory(user, category);
+        return res.stream().map(mapper::toDto).toList();
+    }
+
     @GetMapping
     public List<ExpenseDto> getExpenses() {
         LOGGER.info("GET Expenses");
@@ -57,9 +64,9 @@ public class ExpenseController {
     }
 
     @GetMapping("/user")
-    public List<ExpenseDto> getExpensesByUserId(@RequestParam String userId) {
-        LOGGER.info("GET Expenses by UserId: {}", userId);
-        var res = useCase.listExpensesByUserId(userId);
+    public List<ExpenseDto> getExpensesByUserId(@RequestParam String user) {
+        LOGGER.info("GET Expenses by UserId: {}", user);
+        var res = useCase.listExpensesByUserId(user);
         return res.stream().map(mapper::toDto).toList();
     }
 

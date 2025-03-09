@@ -43,6 +43,10 @@ public class ExpenseUseCase {
         return expense;
     }
 
+    public List<Expense> listExpensesByCategory(String user, String category) {
+        return port.listExpensesByCategory(user, category);
+    }
+
     public List<Expense> listExpenses() {
         return port.listExpenses();
     }
@@ -50,4 +54,5 @@ public class ExpenseUseCase {
     public List<Expense> listExpensesByUserId(String userId) {
         return port.listExpensesByUserId(userId);
     }
+
 }
